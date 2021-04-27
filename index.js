@@ -19,11 +19,12 @@ export default Vue.directive('google-signin-button', {
                     scope: Scope,
                     cookiepolicy: 'single_host_origin'
                 })
-                auth2.attachClickHandler(el, {},
-                    OnSuccess,
-                    Onfail
-                )
+                auth2.grantOfflineAccess().then(signInCallback);
             })
+        }
+
+        function signInCallback(googleUser) {
+            vnode.context.OnGoogleAuthSuccess(googleUser)
         }
 
         function OnSuccess(googleUser) {
